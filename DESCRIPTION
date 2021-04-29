@@ -12,3 +12,7 @@ LazyData: true
 RoxygenNote: 7.1.1
 URL: https://github.com/AObaied/Calphad2.5
 BugReports: https://github.com/AObaied/Calphad2.5/issues
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

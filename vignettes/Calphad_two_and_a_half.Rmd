@@ -1,0 +1,19 @@
+---
+title: "Calphad_two_and_a_half"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Calphad_two_and_a_half}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(Calphad2.5)
+```

@@ -4,6 +4,9 @@
 # Calphad2.5
 
 <!-- badges: start -->
+
+[![Travis build
+status](https://travis-ci.com/AObaied/Calphad2.5.svg?branch=master)](https://travis-ci.com/AObaied/Calphad2.5)
 <!-- badges: end -->
 
 The goal of Calphad2.5 is to …
