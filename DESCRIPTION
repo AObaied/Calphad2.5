@@ -16,3 +16,11 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+Imports: 
+    utils,
+    stringr,
+    stats,
+    dplyr,
+    purrr,
+    magrittr,
+    data.table
