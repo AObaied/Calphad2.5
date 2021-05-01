@@ -35,15 +35,6 @@ Temp dependent solution:
 
 ```{r example_T_Dep, warning=FALSE}
 library(Calphad2.5)
-
-```
-
-## Example - Pure Al
-
-Linear Cp solution:
-
-```{r example_b_sol, warning=FALSE}
-library(Calphad2.5)
-
+Main_function("Si",7.268,	15.636,	20,	3.833,	11.665,	18.82)
 ```
 
