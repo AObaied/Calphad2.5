@@ -43,7 +43,7 @@ Calphad.globals$s_d200 <- NULL
 Calphad.globals$s_d100 <- NULL
 
 
-#' Main function
+#' Calphad_2.5
 #'
 #' @param ele input parameter
 #' @param CP100 input parameter
@@ -59,7 +59,7 @@ Calphad.globals$s_d100 <- NULL
 #'
 #' @export
 #'
-Main_function <- function(ele,CP100,CP200,CP298,S100,S200,S298){
+Calphad_2.5 <- function(ele,CP100,CP200,CP298,S100,S200,S298){
 
   # This dataframe will contain the final results
   Results_DB <- NA
@@ -73,18 +73,33 @@ Main_function <- function(ele,CP100,CP200,CP298,S100,S200,S298){
   Calphad.globals$ele <- ele
     #=======================================
     # Read the data entries for each element/compound from the input file
-    Calphad.globals$CP100 <- CP100#Data_Input[Data_Input$Element == ele, 2]
-    Calphad.globals$CP200 <- CP200#Data_Input[Data_Input$Element == ele, 3]
-    Calphad.globals$CP298 <- CP298#Data_Input[Data_Input$Element == ele, 4]
-    Calphad.globals$S100 <- S100#Data_Input[Data_Input$Element == ele, 5]
-    Calphad.globals$S200 <- S200#Data_Input[Data_Input$Element == ele, 6]
-    Calphad.globals$S298 <- S298#Data_Input[Data_Input$Element == ele, 7]
 
-    # if(missing(TM)) {
-    #   RTDB.globals$TM <- DB[row_number,2]
-    # } else {
-    #   RTDB.globals$TM <- TM
-    # }
+    Calphad.globals$CP298 <- CP298
+    Calphad.globals$S298 <- S298
+
+    if(missing(CP100)) {
+      Calphad.globals$CP100 <- NULL
+    } else {
+      Calphad.globals$CP100 <- CP100
+    }
+
+    if(missing(CP200)) {
+      Calphad.globals$CP200 <- NULL
+    } else {
+      Calphad.globals$CP200 <- CP200
+    }
+
+    if(missing(S100)) {
+      Calphad.globals$S100 <- NULL
+    } else {
+      Calphad.globals$S100 <- S100
+    }
+
+    if(missing(S200)) {
+      Calphad.globals$S200 <- NULL
+    } else {
+      Calphad.globals$S200 <- S200
+    }
 
 
     #======================================
@@ -135,10 +150,10 @@ Main_function <- function(ele,CP100,CP200,CP298,S100,S200,S298){
       calc_TD(-10,2500)
       # print(Calphad.globals$NOA)
       # print(Calphad.globals$Td)
-      Optimize_TDep_soution(100)
+      hush(Optimize_TDep_soution(100))
       # print(Calphad.globals$a1)
       # print(Calphad.globals$b1)
-      Ridge_T_Dep_Solution(Calphad.globals$a1)
+      hush(Ridge_T_Dep_Solution(Calphad.globals$a1))
       # parametersS2 <- c(Calphad.globals$T0S2,Calphad.globals$T1S2,Calphad.globals$T2S2,
       #                   Calphad.globals$T3S2,Calphad.globals$T4S2,Calphad.globals$T5S2,
       #                   Calphad.globals$T6S2)
@@ -147,7 +162,7 @@ Main_function <- function(ele,CP100,CP200,CP298,S100,S200,S298){
       #                 Calphad.globals$T7S1)
       # print(parametersS1)
       # print(parametersS2)
-      Temp_Dep_Results(Calphad.globals$RT,200,100)
+      hush(Temp_Dep_Results(Calphad.globals$RT,200,100))
       cps <- c(Calphad.globals$cp_d,Calphad.globals$cp_d100,Calphad.globals$cp_d200)
       #print(cps)
       ss <- c(Calphad.globals$s_d,Calphad.globals$s_d100,Calphad.globals$s_d200)
@@ -161,7 +176,7 @@ Main_function <- function(ele,CP100,CP200,CP298,S100,S200,S298){
       calc_TD_b(0,1000)
       # print(Calphad.globals$Td)
       # print(Calphad.globals$b_sol_coef)
-      Ridge_b_Solution(Calphad.globals$Td)
+      hush(Ridge_b_Solution(Calphad.globals$Td))
       # parametersS2 <- c(Calphad.globals$T0S2,Calphad.globals$T1S2,Calphad.globals$T2S2,
       #                   Calphad.globals$T3S2,Calphad.globals$T4S2,Calphad.globals$T5S2,
       #                   Calphad.globals$T6S2)
@@ -172,7 +187,7 @@ Main_function <- function(ele,CP100,CP200,CP298,S100,S200,S298){
       #print(parametersS2)
 
 
-      b_solution_Results(Calphad.globals$RT,200,100)
+      hush(b_solution_Results(Calphad.globals$RT,200,100))
       #cps <- c(Calphad.globals$cp_d,Calphad.globals$cp_d100,Calphad.globals$cp_d200)
       #print(cps)
       #ss <- c(Calphad.globals$s_d,Calphad.globals$s_d100,Calphad.globals$s_d200)

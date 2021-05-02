@@ -33,8 +33,17 @@ install.packages("Calphad2.5")
 
 Temp dependent solution:
 
-```{r example_T_Dep, warning=FALSE}
+```{r example_T_Dep_solution, warning=FALSE}
 library(Calphad2.5)
-Main_function("Si",7.268,	15.636,	20,	3.833,	11.665,	18.82)
+Calphad_2.5("Si", CP298 = 20,	S298 = 18.82)
+```
+
+## Example - Pure Al
+
+Temp dependent solution:
+
+```{r example_Linear_solution, warning=FALSE}
+library(Calphad2.5)
+Calphad_2.5("Al", CP298 = 24.209,	S298 = 28.275)
 ```
 

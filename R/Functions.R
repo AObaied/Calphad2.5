@@ -317,3 +317,10 @@ entr_2_below <- function(x){
     CP[i] <- S2_below(x[i])/x[i]
   return(CP)
 }
+
+hush=function(code){
+  sink("NUL") # use /dev/null in UNIX
+  tmp = code
+  sink()
+  return(tmp)
+}
