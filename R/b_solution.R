@@ -36,6 +36,8 @@ calc_TD_b <- function(L1,L2){
     print("Unique solution couldn't be evaluated using input parameters")
   }
   Calphad.globals$b_sol_coef <- eq_1(Calphad.globals$Td)*Calphad.globals$NOA
+  Calphad.globals$b1 <- 0
+  Calphad.globals$a1 <- 0
 }
 
 #---------------------------------------------------

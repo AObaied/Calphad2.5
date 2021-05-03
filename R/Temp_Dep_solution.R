@@ -76,6 +76,7 @@ tryCatch({
   #=================================================
   # calculate the coefficient (b) in (Td = a + b*T)
   Calphad.globals$b1 <- (Calphad.globals$Td-Calphad.globals$a1)/Calphad.globals$RT
+  Calphad.globals$b_sol_coef <- 0
 
   # # Values to add to the final results dataframe
   # a1_coeff <- a1

@@ -44,6 +44,6 @@ Temp dependent solution:
 
 ```{r example_Linear_solution, warning=FALSE}
 library(Calphad2.5)
-Calphad_2.5("Al", CP298 = 24.209,	S298 = 28.275)
+Calphad_2.5("Al",  CP298 = 24.209,	S298 = 28.275)
 ```
 

@@ -17,8 +17,6 @@ Calphad.globals$b1 <- NULL
 Calphad.globals$MTB_Error <- NULL
 
 
-
-
 Calphad.globals$T1S1 <- NULL
 Calphad.globals$T2S1 <- NULL
 Calphad.globals$T3S1 <- NULL
@@ -59,7 +57,7 @@ Calphad.globals$s_d100 <- NULL
 #'
 #' @export
 #'
-Calphad_2.5 <- function(ele,CP100,CP200,CP298,S100,S200,S298){
+Calphad_2.5 <- function(ele,CP100,CP200,CP298,S100,S200,S298, env = Calphad.globals){
 
   # This dataframe will contain the final results
   Results_DB <- NA
@@ -78,25 +76,25 @@ Calphad_2.5 <- function(ele,CP100,CP200,CP298,S100,S200,S298){
     Calphad.globals$S298 <- S298
 
     if(missing(CP100)) {
-      Calphad.globals$CP100 <- NULL
+      Calphad.globals$CP100 <- "-"
     } else {
       Calphad.globals$CP100 <- CP100
     }
 
     if(missing(CP200)) {
-      Calphad.globals$CP200 <- NULL
+      Calphad.globals$CP200 <- "-"
     } else {
       Calphad.globals$CP200 <- CP200
     }
 
     if(missing(S100)) {
-      Calphad.globals$S100 <- NULL
+      Calphad.globals$S100 <- "-"
     } else {
       Calphad.globals$S100 <- S100
     }
 
     if(missing(S200)) {
-      Calphad.globals$S200 <- NULL
+      Calphad.globals$S200 <- "-"
     } else {
       Calphad.globals$S200 <- S200
     }
@@ -146,22 +144,15 @@ Calphad_2.5 <- function(ele,CP100,CP200,CP298,S100,S200,S298){
     # Choose a solution based on the difference in entropy (S_diff)
 
     if (Calphad.globals$S_diff > 0){ # Choose T_Dep_solution
-      # source(paste(getwd(),"/Subsidiary_R_files/T_Dep_solution.R",sep = ""),local = F)
       calc_TD(-10,2500)
-      # print(Calphad.globals$NOA)
-      # print(Calphad.globals$Td)
       hush(Optimize_TDep_soution(100))
-      # print(Calphad.globals$a1)
-      # print(Calphad.globals$b1)
       hush(Ridge_T_Dep_Solution(Calphad.globals$a1))
-      # parametersS2 <- c(Calphad.globals$T0S2,Calphad.globals$T1S2,Calphad.globals$T2S2,
-      #                   Calphad.globals$T3S2,Calphad.globals$T4S2,Calphad.globals$T5S2,
-      #                   Calphad.globals$T6S2)
-      # parametersS1 <- c(Calphad.globals$T1S1,Calphad.globals$T2S1,Calphad.globals$T3S1,
-      #                 Calphad.globals$T4S1,Calphad.globals$T5S1,Calphad.globals$T6S1,
-      #                 Calphad.globals$T7S1)
-      # print(parametersS1)
-      # print(parametersS2)
+      parametersS2 <- c(Calphad.globals$T0S2,Calphad.globals$T1S2,Calphad.globals$T2S2,
+                        Calphad.globals$T3S2,Calphad.globals$T4S2,Calphad.globals$T5S2,
+                        Calphad.globals$T6S2)
+      parametersS1 <- c(Calphad.globals$T1S1,Calphad.globals$T2S1,Calphad.globals$T3S1,
+                      Calphad.globals$T4S1,Calphad.globals$T5S1,Calphad.globals$T6S1,
+                      Calphad.globals$T7S1)
       hush(Temp_Dep_Results(Calphad.globals$RT,200,100))
       cps <- c(Calphad.globals$cp_d,Calphad.globals$cp_d100,Calphad.globals$cp_d200)
       #print(cps)
@@ -172,26 +163,9 @@ Calphad_2.5 <- function(ele,CP100,CP200,CP298,S100,S200,S298){
     }
 
     if (Calphad.globals$S_diff < 0){ # Choose b_Solution
-      #print("b-solution")# source(paste(getwd(),"/Subsidiary_R_files/b_solution.R",sep = ""),local = F)
       calc_TD_b(0,1000)
-      # print(Calphad.globals$Td)
-      # print(Calphad.globals$b_sol_coef)
       hush(Ridge_b_Solution(Calphad.globals$Td))
-      # parametersS2 <- c(Calphad.globals$T0S2,Calphad.globals$T1S2,Calphad.globals$T2S2,
-      #                   Calphad.globals$T3S2,Calphad.globals$T4S2,Calphad.globals$T5S2,
-      #                   Calphad.globals$T6S2)
-      # parametersS1 <- c(Calphad.globals$T1S1,Calphad.globals$T2S1,Calphad.globals$T3S1,
-      #                 Calphad.globals$T4S1,Calphad.globals$T5S1,Calphad.globals$T6S1,
-      #                 Calphad.globals$T7S1)
-      #print(parametersS1)
-      #print(parametersS2)
-
-
       hush(b_solution_Results(Calphad.globals$RT,200,100))
-      #cps <- c(Calphad.globals$cp_d,Calphad.globals$cp_d100,Calphad.globals$cp_d200)
-      #print(cps)
-      #ss <- c(Calphad.globals$s_d,Calphad.globals$s_d100,Calphad.globals$s_d200)
-      #print(ss)
     }
     #=====================================================================
     # plotting the results and saving them as a png figure in the (Results) folder
@@ -210,21 +184,55 @@ Calphad_2.5 <- function(ele,CP100,CP200,CP298,S100,S200,S298){
 
     #=====================================================================
     # Saving the results in a dataframe
-    Results_DB <-rbind(Results_DB, c("Element" = Calphad.globals$ele,
-                                     "CP100_model"=Calphad.globals$cp_d100,"CP100_Input"=Calphad.globals$CP100,
-                                     "CP200_model"=Calphad.globals$cp_d200,"CP200_Input"=Calphad.globals$CP200,
-                                     "CP298_model"=Calphad.globals$cp_d,"CP298_Input"=Calphad.globals$CP298,
-                                     "S100_model"=Calphad.globals$s_d100,"S100_Input"=Calphad.globals$S100,
-                                     "S200_model"=Calphad.globals$s_d200,"S200_Input"=Calphad.globals$S200,
-                                     "S298_model"=Calphad.globals$s_d,"S298_Input"=Calphad.globals$S298,
-                                     "Td"=Calphad.globals$Td, "a1_T_dep_sol"=Calphad.globals$a1,"b1_T_dep_sol"=Calphad.globals$b1,
-                                     "b_sol_coef" = Calphad.globals$b_sol_coef,'NOA'=Calphad.globals$NOA,'S-diff'=Calphad.globals$S_diff,
-                                     "a_S1" = as.numeric(Calphad.globals$T1S1), "b_S1" = as.numeric(Calphad.globals$T2S1), "c_S1" = as.numeric(Calphad.globals$T3S1),
-                                     "d_S1" = as.numeric(Calphad.globals$T4S1), "e_S1" = as.numeric(Calphad.globals$T5S1), "f_S1" = as.numeric(Calphad.globals$T6S1), "g_S1" = as.numeric(Calphad.globals$T7S1),
-                                     "a_S2" = as.numeric(Calphad.globals$T0S2), "b_S2" = as.numeric(Calphad.globals$T1S2), "c_S2" = as.numeric(Calphad.globals$T2S2), "d_S2" = as.numeric(Calphad.globals$T3S2),
-                                     "e_S2" = as.numeric(Calphad.globals$T4S2), "f_S2" = as.numeric(Calphad.globals$T5S2), "g_S2" = as.numeric(Calphad.globals$T6S2)))
-    Results_DB <- Results_DB[-1,]
-    #write.csv(Results_DB, file = "Results.csv", row.names=FALSE)
+    # Results_DB <-rbind(Results_DB, c("Element" = Calphad.globals$ele,
+    #                                  "CP100_model"=Calphad.globals$cp_d100,"CP100_Input"=Calphad.globals$CP100,
+    #                                  "CP200_model"=Calphad.globals$cp_d200,"CP200_Input"=Calphad.globals$CP200,
+    #                                  "CP298_model"=Calphad.globals$cp_d,"CP298_Input"=Calphad.globals$CP298,
+    #                                  "S100_model"=Calphad.globals$s_d100,"S100_Input"=Calphad.globals$S100,
+    #                                  "S200_model"=Calphad.globals$s_d200,"S200_Input"=Calphad.globals$S200,
+    #                                  "S298_model"=Calphad.globals$s_d,"S298_Input"=Calphad.globals$S298,
+    #                                  "Td"=Calphad.globals$Td, "a1_T_dep_sol"=Calphad.globals$a1,"b1_T_dep_sol"=Calphad.globals$b1,
+    #                                  "b_sol_coef" = Calphad.globals$b_sol_coef,'NOA'=Calphad.globals$NOA,'S-diff'=Calphad.globals$S_diff,
+    #                                  "a_S1" = as.numeric(Calphad.globals$T1S1), "b_S1" = as.numeric(Calphad.globals$T2S1), "c_S1" = as.numeric(Calphad.globals$T3S1),
+    #                                  "d_S1" = as.numeric(Calphad.globals$T4S1), "e_S1" = as.numeric(Calphad.globals$T5S1), "f_S1" = as.numeric(Calphad.globals$T6S1), "g_S1" = as.numeric(Calphad.globals$T7S1),
+    #                                  "a_S2" = as.numeric(Calphad.globals$T0S2), "b_S2" = as.numeric(Calphad.globals$T1S2), "c_S2" = as.numeric(Calphad.globals$T2S2), "d_S2" = as.numeric(Calphad.globals$T3S2),
+    #                                  "e_S2" = as.numeric(Calphad.globals$T4S2), "f_S2" = as.numeric(Calphad.globals$T5S2), "g_S2" = as.numeric(Calphad.globals$T6S2)))
+    # Results_DB <- Results_DB[-1,]
+    #write.csv(Results_DB, file = "Results",Calphad.globals$ele,".csv", row.names=FALSE)
+    # Results_input <- data.frame("Element" = Calphad.globals$ele, "CP100_Input"=Calphad.globals$CP100, "CP200_Input"=Calphad.globals$CP200, "CP298_Input"=Calphad.globals$CP298,
+    #                             "S100_Input"=Calphad.globals$S100, "S200_Input"=Calphad.globals$S200, "S298_Input"=Calphad.globals$S298)
+    # Results_output_parameters <- NA
+    # Results_output_parameters <- data.frame("Td"=Calphad.globals$Td, "a1_T_dep_sol"=Calphad.globals$a1,"b1_T_dep_sol"=Calphad.globals$b1,
+    #                                         "b_sol_coef" = Calphad.globals$b_sol_coef,'Number of atoms'=Calphad.globals$NOA)
+    # Results_output_poly <- data.frame( "a_S1" = as.numeric(Calphad.globals$T1S1), "b_S1" = as.numeric(Calphad.globals$T2S1), "c_S1" = as.numeric(Calphad.globals$T3S1),
+    #                                    "d_S1" = as.numeric(Calphad.globals$T4S1), "e_S1" = as.numeric(Calphad.globals$T5S1), "f_S1" = as.numeric(Calphad.globals$T6S1), "g_S1" = as.numeric(Calphad.globals$T7S1),
+    #                                    "a_S2" = as.numeric(Calphad.globals$T0S2), "b_S2" = as.numeric(Calphad.globals$T1S2), "c_S2" = as.numeric(Calphad.globals$T2S2), "d_S2" = as.numeric(Calphad.globals$T3S2),
+    #                                    "e_S2" = as.numeric(Calphad.globals$T4S2), "f_S2" = as.numeric(Calphad.globals$T5S2), "g_S2" = as.numeric(Calphad.globals$T6S2))
+    # Results <- c(Results_input, Results_output_parameters, Results_output_poly)
+    # results_table <- knitr::kable(Results_DB, digits = 2, caption = "Calphad 2.5 model results",
+    #                               col.names =c("parameter","value"),"simple")
+
+    DF_Id <- c("CP_100","CP_200","CP_298.15","S_100","S_200","S_298.15")
+    DF_input <- c(Calphad.globals$CP100,Calphad.globals$CP200,Calphad.globals$CP298,
+                  Calphad.globals$S100,Calphad.globals$S200,Calphad.globals$S298)
+    DF_model <- c(Calphad.globals$cp_d100,Calphad.globals$cp_d200,Calphad.globals$cp_d,
+                  Calphad.globals$s_d100,Calphad.globals$s_d200,Calphad.globals$s_d)
+    results_Cp_S <- data.frame(DF_Id,DF_input,DF_model)
+
+    DF_para_names <-c("Td","a1_T_dep_sol","b1_T_dep_sol", "b_sol_coef", 'Number of atoms')
+    DF_para_values <- c(Calphad.globals$Td, Calphad.globals$a1,Calphad.globals$b1,
+                        Calphad.globals$b_sol_coef,Calphad.globals$NOA)
+    Results_output_parameters <- data.frame(DF_para_names, DF_para_values)
+
+    knitr::kables(
+      list(
+        knitr::kable(results_Cp_S, col.names = c('Quantity', 'Input value', 'Model Result'), valign = 't'),
+        knitr::kable(Results_output_parameters, col.names = c('Parameter', 'Value'),digits = 5, valign = 't')
+        #, knitr::kable(Results_output_parameters, col.names = c('Parameter', 'Value'),digits = 0, valign = 't')
+      ),
+      caption = 'Calphad 2.5 model results'
+    )
+
   #}
-    return(Results_DB)
+    #return(Results_DB)
 }

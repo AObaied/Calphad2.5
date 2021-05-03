@@ -4,7 +4,7 @@
 \alias{Calphad_2.5}
 \title{Calphad_2.5}
 \usage{
-Calphad_2.5(ele, CP100, CP200, CP298, S100, S200, S298)
+Calphad_2.5(ele, CP100, CP200, CP298, S100, S200, S298, env = Calphad.globals)
 }
 \arguments{
 \item{ele}{input parameter}
