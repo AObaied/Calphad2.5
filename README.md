@@ -23,7 +23,7 @@ install.packages("Calphad2.5")
 
 ## Example - Pure Si
 
-Temp. dependent solution:
+Temp dependent solution:
 
 ``` r
 library(Calphad2.5)
@@ -37,146 +37,27 @@ Calphad 2.5 model results
 <tbody>
 <tr>
 <td>
-<table>
-<thead>
-<tr>
-<th style="text-align:left;">
-Quantity
-</th>
-<th style="text-align:left;">
-Input value
-</th>
-<th style="text-align:right;">
-Model Result
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-CP\_100
-</td>
-<td style="text-align:left;">
 
--   </td>
-    <td style="text-align:right;">
-    7.348684
-    </td>
-    </tr>
-    <tr>
-    <td style="text-align:left;">
-    CP\_200
-    </td>
-    <td style="text-align:left;">
-
-    -   </td>
-        <td style="text-align:right;">
-        16.424254
-        </td>
-        </tr>
-        <tr>
-        <td style="text-align:left;">
-        CP\_298.15
-        </td>
-        <td style="text-align:left;">
-        20
-        </td>
-        <td style="text-align:right;">
-        20.000000
-        </td>
-        </tr>
-        <tr>
-        <td style="text-align:left;">
-        S\_100
-        </td>
-        <td style="text-align:left;">
-
-        -   </td>
-            <td style="text-align:right;">
-            3.174880
-            </td>
-            </tr>
-            <tr>
-            <td style="text-align:left;">
-            S\_200
-            </td>
-            <td style="text-align:left;">
-
-            -   </td>
-                <td style="text-align:right;">
-                11.497100
-                </td>
-                </tr>
-                <tr>
-                <td style="text-align:left;">
-                S\_298.15
-                </td>
-                <td style="text-align:left;">
-                18.82
-                </td>
-                <td style="text-align:right;">
-                18.823450
-                </td>
-                </tr>
-                </tbody>
-                </table>
+| Quantity   | Input value | Model Result |
+|:-----------|:------------|-------------:|
+| CP\_100    | \-          |     7.348684 |
+| CP\_200    | \-          |    16.424254 |
+| CP\_298.15 | 20          |    20.000000 |
+| S\_100     | \-          |     3.174880 |
+| S\_200     | \-          |    11.497100 |
+| S\_298.15  | 18.82       |    18.823450 |
 
 </td>
 <td>
-<table>
-<thead>
-<tr>
-<th style="text-align:left;">
-Parameter
-</th>
-<th style="text-align:right;">
-Value
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Td
-</td>
-<td style="text-align:right;">
-641.71863
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-a1\_T\_dep\_sol
-</td>
-<td style="text-align:right;">
-531.25000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b1\_T\_dep\_sol
-</td>
-<td style="text-align:right;">
-0.37051
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b\_sol\_coef
-</td>
-<td style="text-align:right;">
-0.00000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Number of atoms
-</td>
-<td style="text-align:right;">
-1.00000
-</td>
-</tr>
-</tbody>
-</table>
+
+| Parameter       |     Value |
+|:----------------|----------:|
+| Td              | 641.71863 |
+| a1\_T\_dep\_sol | 531.25000 |
+| b1\_T\_dep\_sol |   0.37051 |
+| b\_sol\_coef    |   0.00000 |
+| Number of atoms |   1.00000 |
+
 </td>
 </tr>
 </tbody>
@@ -198,146 +79,27 @@ Calphad 2.5 model results
 <tbody>
 <tr>
 <td>
-<table>
-<thead>
-<tr>
-<th style="text-align:left;">
-Quantity
-</th>
-<th style="text-align:left;">
-Input value
-</th>
-<th style="text-align:right;">
-Model Result
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-CP\_100
-</td>
-<td style="text-align:left;">
 
--   </td>
-    <td style="text-align:right;">
-    12.95520
-    </td>
-    </tr>
-    <tr>
-    <td style="text-align:left;">
-    CP\_200
-    </td>
-    <td style="text-align:left;">
-
-    -   </td>
-        <td style="text-align:right;">
-        21.46383
-        </td>
-        </tr>
-        <tr>
-        <td style="text-align:left;">
-        CP\_298.15
-        </td>
-        <td style="text-align:left;">
-        24.209
-        </td>
-        <td style="text-align:right;">
-        24.21027
-        </td>
-        </tr>
-        <tr>
-        <td style="text-align:left;">
-        S\_100
-        </td>
-        <td style="text-align:left;">
-
-        -   </td>
-            <td style="text-align:right;">
-            6.89097
-            </td>
-            </tr>
-            <tr>
-            <td style="text-align:left;">
-            S\_200
-            </td>
-            <td style="text-align:left;">
-
-            -   </td>
-                <td style="text-align:right;">
-                19.12283
-                </td>
-                </tr>
-                <tr>
-                <td style="text-align:left;">
-                S\_298.15
-                </td>
-                <td style="text-align:left;">
-                28.275
-                </td>
-                <td style="text-align:right;">
-                28.29019
-                </td>
-                </tr>
-                </tbody>
-                </table>
+| Quantity   | Input value | Model Result |
+|:-----------|:------------|-------------:|
+| CP\_100    | \-          |     12.95520 |
+| CP\_200    | \-          |     21.46383 |
+| CP\_298.15 | 24.209      |     24.21027 |
+| S\_100     | \-          |      6.89097 |
+| S\_200     | \-          |     19.12283 |
+| S\_298.15  | 28.275      |     28.29019 |
 
 </td>
 <td>
-<table>
-<thead>
-<tr>
-<th style="text-align:left;">
-Parameter
-</th>
-<th style="text-align:right;">
-Value
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-Td
-</td>
-<td style="text-align:right;">
-402.10000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-a1\_T\_dep\_sol
-</td>
-<td style="text-align:right;">
-0.00000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b1\_T\_dep\_sol
-</td>
-<td style="text-align:right;">
-0.00000
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-b\_sol\_coef
-</td>
-<td style="text-align:right;">
-0.00468
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Number of atoms
-</td>
-<td style="text-align:right;">
-1.00000
-</td>
-</tr>
-</tbody>
-</table>
+
+| Parameter       |     Value |
+|:----------------|----------:|
+| Td              | 402.10000 |
+| a1\_T\_dep\_sol |   0.00000 |
+| b1\_T\_dep\_sol |   0.00000 |
+| b\_sol\_coef    |   0.00468 |
+| Number of atoms |   1.00000 |
+
 </td>
 </tr>
 </tbody>

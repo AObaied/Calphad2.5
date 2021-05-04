@@ -226,8 +226,8 @@ Calphad_2.5 <- function(ele,CP100,CP200,CP298,S100,S200,S298, env = Calphad.glob
 
     knitr::kables(
       list(
-        knitr::kable(results_Cp_S, col.names = c('Quantity', 'Input value', 'Model Result'), valign = 't',format='html'),
-        knitr::kable(Results_output_parameters, col.names = c('Parameter', 'Value'),digits = 5, valign = 't',format = 'html')
+        knitr::kable(results_Cp_S, col.names = c('Quantity', 'Input value', 'Model Result'), valign = 't',format='simple'),
+        knitr::kable(Results_output_parameters, col.names = c('Parameter', 'Value'),digits = 5, valign = 't',format = 'simple')
         #, knitr::kable(Results_output_parameters, col.names = c('Parameter', 'Value'),digits = 0, valign = 't')
       ),
       caption = 'Calphad 2.5 model results'
