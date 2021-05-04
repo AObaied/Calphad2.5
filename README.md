@@ -23,7 +23,7 @@ install.packages("Calphad2.5")
 
 ## Example - Pure Si
 
-Temp dependent solution:
+Temp. dependent solution:
 
 ``` r
 library(Calphad2.5)
