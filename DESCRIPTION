@@ -2,7 +2,7 @@ Package: Calphad2.5
 Type: Package
 Title: 2 1/2th generation Calphad databases
 Version: 0.1.0
-Author: Authors@R: 
+Authors@R: 
   c(person(given = "Abdulmonem",
            family = "Obaied",
            role = c("aut", "cre"),
