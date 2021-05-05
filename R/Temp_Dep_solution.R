@@ -128,24 +128,10 @@ Temp_Dep_Results <- function(T1,T2,T3){
   S_all_above100 <-  S_1_above100 + S_2_above100
   # S100
   Calphad.globals$s_d100 = round(S_all_above100,5)
-  #=============================================
-  # S up to RT
-  # xrt <- seq(1,Calphad.globals$RT,1)
-  # S_DF <- data.table(x = xrt)
-  #
-  # for (i in seq(along=xrt)){
-  #   if(x[i]<Calphad.globals$bp){
-  #     S <- integrate(entr_1_above, 0,xrt[i])$val
-  #     S_DF$y[i] <-  S
-  #   }
-  #   if(x[i]>=40){
-  #     S1 <- integrate(entr_1_above, 0,Calphad.globals$bp)$val
-  #     S2 <- integrate(entr_2_above, Calphad.globals$bp,xrt[i])$val
-  #     S_DF$y[i] <-  S1 + S2
-  #   }
-  # }
 }
 
-#------------------
+
+
+
 
 

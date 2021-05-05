@@ -54,8 +54,6 @@ Calphad.globals$s_d100 <- NULL
 #'
 #' @export
 #'
-#' @example
-#' Calculate("Si", CP298 = 20, S298 = 18.82)
 Calculate <- function(compound,CP298,S298){
 
   # This dataframe will contain the final results
@@ -253,4 +251,77 @@ Calculate <- function(compound,CP298,S298){
 
   #}
     #return(Results_DB)
+}
+
+#' calculate_S
+#'
+#' @param Temp Temperature range
+#' @param compound A character string. The number of atoms will be automatically determined
+#' @param CP298 A numerical variable. The Heat capacity (Cp) value at the room temperature (298.15 K) in (j/mol K)
+#' @param S298 A numerical variable. The Entropy (S) value at the room temperature (298.15 K) in (j/mol K)
+#'
+#' @return the model's evaluation of Entropy (S)
+#'
+#' @export
+#'
+calculate_S <- function(Temp,compound,CP298,S298){
+  Calphad.globals$ele <- compound
+  Calphad.globals$CP298 <- CP298
+  Calphad.globals$S298 <- S298
+  hush(Calculate(Calphad.globals$ele,Calphad.globals$CP298,Calphad.globals$S298))
+
+  S_DF <- data.table(x = Temp)
+  if (Calphad.globals$S_diff > 0){ # Choose T_Dep_solution
+    for (i in seq(along=Temp)){
+      if(Temp[i]<Calphad.globals$bp){
+        S <- integrate(entr_1_above, 0,Temp[i])$val
+        S_DF$y[i] <-  S
+      }
+      if(Temp[i]>=Calphad.globals$bp){
+        S1 <- integrate(entr_1_above, 0,Calphad.globals$bp)$val
+        S2 <- integrate(entr_2_above, Calphad.globals$bp,Temp[i])$val
+        S_DF$y[i] <-  S1 + S2
+      }
+    }
+  }
+  if (Calphad.globals$S_diff < 0){ # Choose b_solution
+    for (i in seq(along=Temp)){
+      if(Temp[i]<Calphad.globals$bp){
+        S <- integrate(entr_1_below, 0,Temp[i])$val
+        S_DF$y[i] <-  S
+      }
+      if(Temp[i]>=Calphad.globals$bp){
+        S1 <- integrate(entr_1_below, 0,Calphad.globals$bp)$val
+        S2 <- integrate(entr_2_below, Calphad.globals$bp,Temp[i])$val
+        S_DF$y[i] <-  S1 + S2
+      }
+    }
+  }
+  return(S_DF$y)
+}
+
+
+#' calculate_Cp
+#'
+#' @param Temp Temperature range
+#' @param compound A character string. The number of atoms will be automatically determined
+#' @param CP298 A numerical variable. The Heat capacity (Cp) value at the room temperature (298.15 K) in (j/mol K)
+#' @param S298 A numerical variable. The Entropy (S) value at the room temperature (298.15 K) in (j/mol K)
+#'
+#' @return the model's evaluation of Hat capacity (Cp)
+#' @export
+#'
+calculate_Cp <- function(Temp,compound,CP298,S298){
+  Calphad.globals$ele <- compound
+  Calphad.globals$CP298 <- CP298
+  Calphad.globals$S298 <- S298
+  hush(Calculate(Calphad.globals$ele,Calphad.globals$CP298,Calphad.globals$S298))
+
+  if(Calphad.globals$S_diff > 0){ # Choose T_Dep_solution
+    Cp <- Debye_model_above(Temp)
+  }
+  if(Calphad.globals$S_diff < 0){ # Choose b_solution
+    Cp <- Debye_model_below(Temp)
+  }
+  return(Cp)
 }

@@ -9,8 +9,10 @@
 status](https://travis-ci.com/AObaied/Calphad2.5.svg?branch=master)](https://travis-ci.com/AObaied/Calphad2.5)
 <!-- badges: end -->
 
-The goal of Calphad2.5 is to generate Cp and S descriptions below room
-temperature, using only two input parameters (Cp298, S298)
+The 2 1/2th Calphad model is capable of extrapolating the Heat capacity
+(Cp) and Entropy (S) descriptions from the room temperature down to 0 K
+very accurately, using only two input parameters: The heat capacity and
+Entropy values at room temperature (Cp298, S298).
 
 ## Installation
 
@@ -27,6 +29,7 @@ Temp dependent solution:
 
 ``` r
 library(Calphad2.5)
+
 Calculate("Si", CP298 = 20, S298 = 18.82)
 #> , , Model output:
 #> 
@@ -68,6 +71,7 @@ Temp dependent solution:
 
 ``` r
 library(Calphad2.5)
+
 Calculate("Al",  CP298 = 24.209, S298 = 28.275)
 #> , , Model output:
 #> 
@@ -102,3 +106,61 @@ Calculate("Al",  CP298 = 24.209, S298 = 28.275)
 #> f2  3.278018e+02
 #> g2  3.830358e+03
 ```
+
+## Example - Pure Al - Calulate and Plot Heat capacity and Entropy
+
+Temp dependent solution:
+
+``` r
+library(Calphad2.5)
+
+# Calculate Heat capacity (Cp)
+Temp <- seq(1,298.15,1)
+Cp <- calculate_Cp(Temp = Temp, compound = "Al",  CP298 = 24.209, S298 = 28.275)
+
+# Plot Heat capacity (Cp)
+plot(Temp,Cp,type="line", lwd=2, xlab = "Temperature, K", ylab = "Cp, J/(mol.K)")
+points(298.15, 24.209)
+```
+
+<img src="man/figures/README-example_Linear_solution_plot-1.png" width="100%" />
+
+``` r
+# Calculate Entropy (S)
+S <- calculate_S(Temp = Temp, compound = "Al",  CP298 = 24.209, S298 = 28.275)
+
+# Plot Entropy (S)
+plot(Temp,S,type="line", lwd=2, xlab = "Temperature, K", ylab = "S, J/(mol.K)")
+points(298.15, 28.275)
+```
+
+<img src="man/figures/README-example_Linear_solution_plot-2.png" width="100%" />
+
+## Example - Pure Si - Calulate and Plot Heat capacity and Entropy
+
+Temp dependent solution:
+
+``` r
+library(Calphad2.5)
+
+# Calculate Heat capacity (Cp)
+Temp <- seq(1,298.15,1)
+Cp <- calculate_Cp(Temp = Temp, compound = "Si", CP298 = 20, S298 = 18.82)
+
+# Plot Heat capacity (Cp)
+plot(Temp,Cp,type="line", lwd=2, xlab = "Temperature, K", ylab = "Cp, J/(mol.K)")
+points(298.15, 20)
+```
+
+<img src="man/figures/README-example_T_Dep_solution_plot-1.png" width="100%" />
+
+``` r
+# Calculate Entropy (S)
+S <- calculate_S(Temp = Temp, compound = "Si", CP298 = 20, S298 = 18.82)
+
+# Plot Entropy (S)
+plot(Temp,S,type="line", lwd=2, xlab = "Temperature, K", ylab = "S, J/(mol.K)")
+points(298.15, 18.82)
+```
+
+<img src="man/figures/README-example_T_Dep_solution_plot-2.png" width="100%" />
