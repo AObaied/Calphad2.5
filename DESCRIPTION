@@ -12,7 +12,8 @@ Author: Authors@R:
            role = "ctb"),
     person(given = "Irina",
            family = "Roslyakova",
-           role = "ctb"),
+           role = "ctb",
+           email = "irina.roslyakova@rub.de"),
     person(given = "Moritz",
            family = "To Baben",
            role = "ctb"))
