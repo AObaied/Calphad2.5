@@ -184,7 +184,7 @@ Debye_model_above <- function(x){
 #'
 #' @return polynomial function for the first section of the fitted debye model (0-40)
 #'
-#' @export
+#'
 #'
 S1_above <- function(x){
   f <- vector(length = length(x), mode = "numeric")
@@ -200,7 +200,7 @@ S1_above <- function(x){
 #' @param x Temperature
 #'
 #' @return polynomial function for the second section of the fitted debye model (40-298.15)
-#' @export
+#'
 #'
 S2_above <- function(x){
   f <- vector(length = length(x), mode = "numeric")
@@ -217,7 +217,7 @@ S2_above <- function(x){
 #' @param x Temperature
 #'
 #' @return polynomial function for the first section of the fitted debye model (0-40) divided by T - Entropy
-#' @export
+#'
 #'
 entr_1_above <- function(x){
   CP <- vector(length = length(x), mode = "numeric")
