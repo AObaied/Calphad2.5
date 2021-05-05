@@ -1,11 +1,10 @@
 Package: Calphad2.5
 Type: Package
-Title: What the Package Does (Title Case)
+Title: 2 1/2th generation Calphad databases
 Version: 0.1.0
-Author: Abdulmonem Obaied
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Author: Abdulmonem Obaied <abdulmonem.obaied@rub.de>
+Maintainer: Abdulmonem Obaied <abdulmonem.obaied@rub.de>
+Description: The 2 1/2th Calphad model is capable of extrapolating the Heat capacity (Cp) and Entropy (S) descriptions from the room temperature down to 0 K very accurately, using only two input parameters: The heat capacity and Entropy values at room temperature (Cp298, S298).
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
