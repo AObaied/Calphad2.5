@@ -55,7 +55,7 @@ Calphad.globals$s_d100 <- NULL
 #' @export
 #'
 #' @example
-#' Calculate("Si", CP298 = 20,	S298 = 18.82)
+#' Calculate("Si", CP298 = 20, S298 = 18.82)
 Calculate <- function(compound,CP298,S298){
 
   # This dataframe will contain the final results

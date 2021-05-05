@@ -9,7 +9,7 @@
 status](https://travis-ci.com/AObaied/Calphad2.5.svg?branch=master)](https://travis-ci.com/AObaied/Calphad2.5)
 <!-- badges: end -->
 
-The goal of Calphad2.5 is to Generate Cp and S descriptions below room
+The goal of Calphad2.5 is to generate Cp and S descriptions below room
 temperature, using only two input parameters (Cp298, S298)
 
 ## Installation
