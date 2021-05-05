@@ -107,7 +107,7 @@ Calculate("Al",  CP298 = 24.209, S298 = 28.275)
 #> g2  3.830358e+03
 ```
 
-## Example - Pure Al - Calulate and Plot Heat capacity and Entropy
+## Example - Pure Al - Calculate and Plot Heat capacity and Entropy
 
 Temp dependent solution:
 
@@ -136,7 +136,7 @@ points(298.15, 28.275)
 
 <img src="man/figures/README-example_Linear_solution_plot-2.png" width="100%" />
 
-## Example - Pure Si - Calulate and Plot Heat capacity and Entropy
+## Example - Pure Si - Calculate and Plot Heat capacity and Entropy
 
 Temp dependent solution:
 
