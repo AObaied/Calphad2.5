@@ -2,12 +2,9 @@
 
 export(Calculate)
 export(Debye_constant)
-export(S1_above)
-export(S2_above)
 export(calculate_Cp)
 export(calculate_S)
 export(count)
-export(entr_1_above)
 importFrom(data.table,data.table)
 importFrom(dplyr,group_by)
 importFrom(dplyr,summarise)
