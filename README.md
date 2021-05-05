@@ -23,51 +23,7 @@ You can install the released version of Calphad2.5 from
 install.packages("Calphad2.5")
 ```
 
-## Example - Pure Si
-
-Temp dependent solution:
-
-``` r
-library(Calphad2.5)
-
-Calculate("Si", CP298 = 20, S298 = 18.82)
-#> , , Model output:
-#> 
-#>           Input value Model Result
-#> CP_298.15       20.00     20.00000
-#> S_298.15        18.82     18.82345
-#> 
-#> , , Model parameters:
-#> 
-#>                                                    
-#> Debye_Temp.                             641.7186284
-#> a1_parameter_(Temp._Dependent_solution) 531.2500000
-#> b1_parameter_(Temp._Dependent_solution)   0.3705136
-#> b'_parameter_(Linear_Cp_solution)         0.0000000
-#> Number of atoms                           1.0000000
-#> 
-#> , , polynomial_function_parameters:
-#> 
-#>                 
-#> a1  0.000000e+00
-#> b1  7.299323e-07
-#> c1 -9.121419e-07
-#> d1  1.318048e-05
-#> e1 -4.587642e-08
-#> f1  7.098287e-10
-#> g1 -8.553738e-12
-#> a2 -5.382537e+01
-#> b2  6.848982e-01
-#> c2 -2.930307e-03
-#> d2  6.316738e-06
-#> e2 -5.477840e-09
-#> f2  1.863324e+03
-#> g2 -2.414895e+04
-```
-
-## Example - Pure Al
-
-Temp dependent solution:
+## Additional linear Cp Solution: Example of Pure Al
 
 ``` r
 library(Calphad2.5)
@@ -107,9 +63,7 @@ Calculate("Al",  CP298 = 24.209, S298 = 28.275)
 #> g2  3.830358e+03
 ```
 
-## Example - Pure Al - Calculate and Plot Heat capacity and Entropy
-
-Temp dependent solution:
+## Calculate and Plot Heat capacity and Entropy
 
 ``` r
 library(Calphad2.5)
@@ -120,6 +74,8 @@ Cp <- calculate_Cp(Temp = Temp, compound = "Al",  CP298 = 24.209, S298 = 28.275)
 
 # Plot Heat capacity (Cp)
 plot(Temp,Cp,type="line", lwd=2, xlab = "Temperature, K", ylab = "Cp, J/(mol.K)")
+
+# plot Heat capacity (Cp) value at 298 to compare
 points(298.15, 24.209)
 ```
 
@@ -131,12 +87,54 @@ S <- calculate_S(Temp = Temp, compound = "Al",  CP298 = 24.209, S298 = 28.275)
 
 # Plot Entropy (S)
 plot(Temp,S,type="line", lwd=2, xlab = "Temperature, K", ylab = "S, J/(mol.K)")
+
+# plot Entropy (S) value at 298 to compare
 points(298.15, 28.275)
 ```
 
 <img src="man/figures/README-example_Linear_solution_plot-2.png" width="100%" />
 
-## Example - Pure Si - Calculate and Plot Heat capacity and Entropy
+## Temperature dependent Debye temperature solution: Example of Pure Si
+
+``` r
+library(Calphad2.5)
+
+Calculate("Si", CP298 = 20, S298 = 18.82)
+#> , , Model output:
+#> 
+#>           Input value Model Result
+#> CP_298.15       20.00     20.00000
+#> S_298.15        18.82     18.82345
+#> 
+#> , , Model parameters:
+#> 
+#>                                                    
+#> Debye_Temp.                             641.7186284
+#> a1_parameter_(Temp._Dependent_solution) 531.2500000
+#> b1_parameter_(Temp._Dependent_solution)   0.3705136
+#> b'_parameter_(Linear_Cp_solution)         0.0000000
+#> Number of atoms                           1.0000000
+#> 
+#> , , polynomial_function_parameters:
+#> 
+#>                 
+#> a1  0.000000e+00
+#> b1  7.299323e-07
+#> c1 -9.121419e-07
+#> d1  1.318048e-05
+#> e1 -4.587642e-08
+#> f1  7.098287e-10
+#> g1 -8.553738e-12
+#> a2 -5.382537e+01
+#> b2  6.848982e-01
+#> c2 -2.930307e-03
+#> d2  6.316738e-06
+#> e2 -5.477840e-09
+#> f2  1.863324e+03
+#> g2 -2.414895e+04
+```
+
+## Calculate and Plot Heat capacity and Entropy
 
 Temp dependent solution:
 
@@ -149,6 +147,8 @@ Cp <- calculate_Cp(Temp = Temp, compound = "Si", CP298 = 20, S298 = 18.82)
 
 # Plot Heat capacity (Cp)
 plot(Temp,Cp,type="line", lwd=2, xlab = "Temperature, K", ylab = "Cp, J/(mol.K)")
+
+# plot Heat capacity (Cp) value at 298 to compare
 points(298.15, 20)
 ```
 
@@ -160,6 +160,8 @@ S <- calculate_S(Temp = Temp, compound = "Si", CP298 = 20, S298 = 18.82)
 
 # Plot Entropy (S)
 plot(Temp,S,type="line", lwd=2, xlab = "Temperature, K", ylab = "S, J/(mol.K)")
+
+# plot Entropy (S) value at 298 to compare
 points(298.15, 18.82)
 ```
 

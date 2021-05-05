@@ -29,19 +29,7 @@ You can install the released version of Calphad2.5 from [CRAN](https://CRAN.R-pr
 install.packages("Calphad2.5")
 ```
 
-## Example - Pure Si
-
-Temp dependent solution:
-
-```{r example_T_Dep_solution, warning=FALSE}
-library(Calphad2.5)
-
-Calculate("Si", CP298 = 20,	S298 = 18.82)
-```
-
-## Example - Pure Al
-
-Temp dependent solution:
+## Additional linear Cp Solution: Example of Pure Al
 
 ```{r example_Linear_solution, warning=FALSE}
 library(Calphad2.5)
@@ -49,9 +37,7 @@ library(Calphad2.5)
 Calculate("Al",  CP298 = 24.209, S298 = 28.275)
 ```
 
-## Example - Pure Al - Calculate and Plot Heat capacity and Entropy
-
-Temp dependent solution:
+## Calculate and Plot Heat capacity and Entropy
 
 ```{r example_Linear_solution_plot, warning=FALSE}
 library(Calphad2.5)
@@ -62,6 +48,8 @@ Cp <- calculate_Cp(Temp = Temp, compound = "Al",  CP298 = 24.209, S298 = 28.275)
 
 # Plot Heat capacity (Cp)
 plot(Temp,Cp,type="line", lwd=2, xlab = "Temperature, K", ylab = "Cp, J/(mol.K)")
+
+# plot Heat capacity (Cp) value at 298 to compare
 points(298.15, 24.209)
 
 # Calculate Entropy (S)
@@ -69,11 +57,22 @@ S <- calculate_S(Temp = Temp, compound = "Al",  CP298 = 24.209, S298 = 28.275)
 
 # Plot Entropy (S)
 plot(Temp,S,type="line", lwd=2, xlab = "Temperature, K", ylab = "S, J/(mol.K)")
+
+# plot Entropy (S) value at 298 to compare
 points(298.15, 28.275)
 
 ```
 
-## Example - Pure Si - Calculate and Plot Heat capacity and Entropy
+## Temperature dependent Debye temperature solution: Example of Pure Si
+
+```{r example_T_Dep_solution, warning=FALSE}
+library(Calphad2.5)
+
+Calculate("Si", CP298 = 20,	S298 = 18.82)
+```
+
+
+## Calculate and Plot Heat capacity and Entropy
 
 Temp dependent solution:
 
@@ -86,6 +85,8 @@ Cp <- calculate_Cp(Temp = Temp, compound = "Si", CP298 = 20, S298 = 18.82)
 
 # Plot Heat capacity (Cp)
 plot(Temp,Cp,type="line", lwd=2, xlab = "Temperature, K", ylab = "Cp, J/(mol.K)")
+
+# plot Heat capacity (Cp) value at 298 to compare
 points(298.15, 20)
 
 # Calculate Entropy (S)
@@ -93,5 +94,7 @@ S <- calculate_S(Temp = Temp, compound = "Si", CP298 = 20, S298 = 18.82)
 
 # Plot Entropy (S)
 plot(Temp,S,type="line", lwd=2, xlab = "Temperature, K", ylab = "S, J/(mol.K)")
+
+# plot Entropy (S) value at 298 to compare
 points(298.15, 18.82)
 ```
