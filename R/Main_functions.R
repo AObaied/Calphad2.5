@@ -4,11 +4,11 @@ Calphad.globals$RT <- 298.15
 Calphad.globals$bp <- 40
 Calphad.globals$ele <- NULL
 Calphad.globals$S_diff <- NULL
-Calphad.globals$CP100 <- NULL
-Calphad.globals$CP200 <- NULL
+# Calphad.globals$CP100 <- NULL
+# Calphad.globals$CP200 <- NULL
 Calphad.globals$CP298 <- NULL
-Calphad.globals$S100 <- NULL
-Calphad.globals$S200 <- NULL
+# Calphad.globals$S100 <- NULL
+# Calphad.globals$S200 <- NULL
 Calphad.globals$S298 <- NULL
 Calphad.globals$NOA <- NULL
 Calphad.globals$b_sol_coef <- NULL
@@ -41,23 +41,22 @@ Calphad.globals$s_d200 <- NULL
 Calphad.globals$s_d100 <- NULL
 
 
-#' Calphad_2.5
+#' Calculate
 #'
-#' @param ele input parameter
-#' @param CP100 input parameter
-#' @param CP200 input parameter
-#' @param CP298 input parameter
-#' @param S100 input parameter
-#' @param S200 input parameter
-#' @param S298 input parameter
+#' @param compound A character string. The number of atoms will be automatically determined
+#' @param CP298 A numerical variable. The Heat capacity (Cp) value at the room temperature (298.15 K) in (j/mol K)
+#' @param S298 A numerical variable. The Entropy (S) value at the room temperature (298.15 K) in (j/mol K)
 #'
 #' @importFrom utils read.table
 #'
-#' @return Result
+#' @return The function returns the (Model outputs), (Model parameters) and
+#' (polynomial_function_parameters) as 3 individual matrices
 #'
 #' @export
 #'
-Calphad_2.5 <- function(ele,CP100,CP200,CP298,S100,S200,S298, env = Calphad.globals){
+#' @example
+#' Calculate("Si", CP298 = 20,	S298 = 18.82)
+Calculate <- function(compound,CP298,S298){
 
   # This dataframe will contain the final results
   Results_DB <- NA
@@ -68,42 +67,42 @@ Calphad_2.5 <- function(ele,CP100,CP200,CP298,S100,S200,S298, env = Calphad.glob
 
   # Starting the for loop over the list of elements/compounds listed in the input file
   #for(i in Data_Input$Element){
-  Calphad.globals$ele <- ele
+  Calphad.globals$ele <- compound
     #=======================================
     # Read the data entries for each element/compound from the input file
 
     Calphad.globals$CP298 <- CP298
     Calphad.globals$S298 <- S298
 
-    if(missing(CP100)) {
-      Calphad.globals$CP100 <- "-"
-    } else {
-      Calphad.globals$CP100 <- CP100
-    }
-
-    if(missing(CP200)) {
-      Calphad.globals$CP200 <- "-"
-    } else {
-      Calphad.globals$CP200 <- CP200
-    }
-
-    if(missing(S100)) {
-      Calphad.globals$S100 <- "-"
-    } else {
-      Calphad.globals$S100 <- S100
-    }
-
-    if(missing(S200)) {
-      Calphad.globals$S200 <- "-"
-    } else {
-      Calphad.globals$S200 <- S200
-    }
+    # if(missing(CP100)) {
+    #   Calphad.globals$CP100 <- "-"
+    # } else {
+    #   Calphad.globals$CP100 <- CP100
+    # }
+    #
+    # if(missing(CP200)) {
+    #   Calphad.globals$CP200 <- "-"
+    # } else {
+    #   Calphad.globals$CP200 <- CP200
+    # }
+    #
+    # if(missing(S100)) {
+    #   Calphad.globals$S100 <- "-"
+    # } else {
+    #   Calphad.globals$S100 <- S100
+    # }
+    #
+    # if(missing(S200)) {
+    #   Calphad.globals$S200 <- "-"
+    # } else {
+    #   Calphad.globals$S200 <- S200
+    # }
 
 
     #======================================
     # Count the number of atoms
 
-    ele_number <- strsplit(x=ele, split=" ")
+    ele_number <- strsplit(x=Calphad.globals$ele, split=" ")
     ele_number <- ele_number[[1]][1]
     Calphad.globals$NOA <- count(ele_number) # NOA = Number Of Atoms
 
@@ -212,26 +211,45 @@ Calphad_2.5 <- function(ele,CP100,CP200,CP298,S100,S200,S298, env = Calphad.glob
     # results_table <- knitr::kable(Results_DB, digits = 2, caption = "Calphad 2.5 model results",
     #                               col.names =c("parameter","value"),"simple")
 
-    DF_Id <- c("CP_100","CP_200","CP_298.15","S_100","S_200","S_298.15")
-    DF_input <- c(Calphad.globals$CP100,Calphad.globals$CP200,Calphad.globals$CP298,
-                  Calphad.globals$S100,Calphad.globals$S200,Calphad.globals$S298)
-    DF_model <- c(Calphad.globals$cp_d100,Calphad.globals$cp_d200,Calphad.globals$cp_d,
-                  Calphad.globals$s_d100,Calphad.globals$s_d200,Calphad.globals$s_d)
-    results_Cp_S <- data.frame(DF_Id,DF_input,DF_model)
 
-    DF_para_names <-c("Td","a1_T_dep_sol","b1_T_dep_sol", "b_sol_coef", 'Number of atoms')
-    DF_para_values <- c(Calphad.globals$Td, Calphad.globals$a1,Calphad.globals$b1,
-                        Calphad.globals$b_sol_coef,Calphad.globals$NOA)
-    Results_output_parameters <- data.frame(DF_para_names, DF_para_values)
 
-    knitr::kables(
-      list(
-        knitr::kable(results_Cp_S, col.names = c('Quantity', 'Input value', 'Model Result'), valign = 't',format='pipe'),
-        knitr::kable(Results_output_parameters, col.names = c('Parameter', 'Value'),digits = 5, valign = 't',format = 'pipe')
-        #, knitr::kable(Results_output_parameters, col.names = c('Parameter', 'Value'),digits = 0, valign = 't')
-      ),
-      caption = 'Calphad 2.5 model results'
-    )
+    # results_Cp_S
+    results_Cp_S_vector1 <- c(Calphad.globals$CP298, Calphad.globals$S298)
+    results_Cp_S_vector2 <- c(Calphad.globals$cp_d, Calphad.globals$s_d)
+    results_Cp_S_column.names <- c('Input value', 'Model Result')
+    results_Cp_S_row.names <- c("CP_298.15","S_298.15")
+    results_Cp_S_matrix.names <- c("Model output:")
+    results_Cp_S <- array(c(results_Cp_S_vector1,results_Cp_S_vector2),dim = c(2,2,1),
+                          dimnames = list(results_Cp_S_row.names,results_Cp_S_column.names,
+                                          results_Cp_S_matrix.names))
+    print(results_Cp_S)
+
+    # DF_para_names
+    DF_para_names_vector1 <- c(Calphad.globals$Td, Calphad.globals$a1,Calphad.globals$b1,
+                               Calphad.globals$b_sol_coef,round(Calphad.globals$NOA,0))
+    DF_para_names_row.names <- c("Debye_Temp.","a1_parameter_(Temp._Dependent_solution)",
+                                 "b1_parameter_(Temp._Dependent_solution)",
+                                 "b'_parameter_(Linear_Cp_solution)", 'Number of atoms')
+    DF_para_names_matrix.names <- c("Model parameters:")
+    DF_para_names <- array(c(DF_para_names_vector1),dim = c(5,1,1),
+                          dimnames = list(DF_para_names_row.names,"",
+                                          DF_para_names_matrix.names))
+    print(DF_para_names)
+
+    # Results_poly
+    Results_poly_vector1 <- c(Calphad.globals$T1S1,Calphad.globals$T2S1,Calphad.globals$T3S1,
+                              Calphad.globals$T4S1,Calphad.globals$T5S1,Calphad.globals$T6S1,Calphad.globals$T7S1,
+                              Calphad.globals$T0S2,Calphad.globals$T1S2,Calphad.globals$T2S2,Calphad.globals$T3S2,
+                              Calphad.globals$T4S2,Calphad.globals$T5S2,Calphad.globals$T6S2)
+    Results_poly_vector2 <- c(Calphad.globals$cp_d, Calphad.globals$s_d)
+    Results_poly_column.names <- c('')
+    Results_poly_row.names <- c("a1","b1","c1","d1",'e1','f1','g1',
+                                'a2','b2','c2','d2','e2','f2','g2')
+    Results_poly_matrix.names <- c("polynomial_function_parameters:")
+    Results_poly <- array(c(Results_poly_vector1,Results_poly_vector2),dim = c(14,1,1),
+                          dimnames = list(Results_poly_row.names,Results_poly_column.names,
+                                          Results_poly_matrix.names))
+    print(Results_poly)
 
   #}
     #return(Results_DB)
